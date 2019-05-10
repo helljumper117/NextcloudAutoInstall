@@ -1,7 +1,8 @@
-#!/bin/bash
+﻿#!/bin/bash
 
 #----------------------------------------------------------------
-#NextCloud Script von Marcel Gasser und Tobias Moor, HFI 3613
+#NextCloud Script von Marcel Gasser und Tobias Moor, IFA HFI 3613
+#GNU GPLv3 licensed
 #----------------------------------------------------------------
 
 
@@ -129,6 +130,8 @@ a2ensite nextcloud.conf
 systemctl reload apache2
 
 touch /var/www/nextcloud/config/autoconfig.php
+chown www-data:www-data /var/www/nextcloud/config/autoconfig.php
+ncadminPW=$(cat /dev/urandom | tr -dc 'a-zA-Z0-9' | fold -w 12 | head -n 1)
 echo '<?php' >> /var/www/nextcloud/config/autoconfig.php
 echo '$AUTOCONFIG = array(' >> /var/www/nextcloud/config/autoconfig.php
 echo '  "directory"     => "/nextcloud/data",' >> /var/www/nextcloud/config/autoconfig.php
@@ -137,11 +140,12 @@ echo '  "dbname"        => "nextcloud",' >> /var/www/nextcloud/config/autoconfig
 echo '  "dbuser"        => "ncuser",' >> /var/www/nextcloud/config/autoconfig.php
 echo '  "dbpass"        => "'$ncuserPW'",' >> /var/www/nextcloud/config/autoconfig.php
 echo '  "dbhost"        => "localhost",' >> /var/www/nextcloud/config/autoconfig.php
-echo '  "adminlogin"    => "ncadmin",' >> /var/www/nextcloud/config/autoconfig.php
+echo '  "adminlogin"    => "'$ncadminPW'",' >> /var/www/nextcloud/config/autoconfig.php
 echo '  "adminpass"     => "PW4ncadmin!",' >> /var/www/nextcloud/config/autoconfig.php
 echo ');' >> /var/www/nextcloud/config/autoconfig.php
 echo "Das Nextcloud Web-Login lautet: ncadmin" >> /var/log/nc-install-log.txt
-echo "Das Nextcloud Web-Passwort lautet: PW4ncadmin" >> /var/log/nc-install-log.txt
+echo "Das Nextcloud Web-Passwort lautet: $ncadminPW" >> /var/log/nc-install-log.txt
 
 echo "Nextcloud wurd erfolgreich installiert" >> /var/log/nc-install-log.txt
 echo "Nextcloud wurd erfolgreich installiert"
+echo "Legen sie die Passwörter aus dem /var/log/nc-install.txt File im KeePass ab und löschen sie die Datei"
