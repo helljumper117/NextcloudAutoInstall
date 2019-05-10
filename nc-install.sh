@@ -140,8 +140,8 @@ echo '  "dbname"        => "nextcloud",' >> /var/www/nextcloud/config/autoconfig
 echo '  "dbuser"        => "ncuser",' >> /var/www/nextcloud/config/autoconfig.php
 echo '  "dbpass"        => "'$ncuserPW'",' >> /var/www/nextcloud/config/autoconfig.php
 echo '  "dbhost"        => "localhost",' >> /var/www/nextcloud/config/autoconfig.php
-echo '  "adminlogin"    => "'$ncadminPW'",' >> /var/www/nextcloud/config/autoconfig.php
-echo '  "adminpass"     => "PW4ncadmin!",' >> /var/www/nextcloud/config/autoconfig.php
+echo '  "adminlogin"    => "ncadmin",' >> /var/www/nextcloud/config/autoconfig.php
+echo '  "adminpass"     => "'$ncadminPW'",' >> /var/www/nextcloud/config/autoconfig.php
 echo ');' >> /var/www/nextcloud/config/autoconfig.php
 echo "Das Nextcloud Web-Login lautet: ncadmin" >> /var/log/nc-install-log.txt
 echo "Das Nextcloud Web-Passwort lautet: $ncadminPW" >> /var/log/nc-install-log.txt
